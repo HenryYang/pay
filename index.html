@@ -24,7 +24,7 @@
     // them to Checkout.
     var itemamount = document.getElementById("item-amount");
     stripe.redirectToCheckout({
-      lineItems: [{price: 'price_HNVQMsQpph3pm6', quantity: itemamount}],
+      lineItems: [{price: 'price_HNVQMsQpph3pm6', quantity:  parseInt(itemamount.value, 10)}],
       mode: 'payment',
       // Do not rely on the redirect to the successUrl for fulfilling
       // purchases, customers may not always reach the success_url after
