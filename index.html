@@ -22,7 +22,7 @@
   checkoutButton.addEventListener('click', function () {
     // When the customer clicks on the button, redirect
     // them to Checkout.
-    const itemamount = document.getElementById("item-amount");
+    var itemamount = document.getElementById("item-amount");
     stripe.redirectToCheckout({
       lineItems: [{price: 'price_HNVQMsQpph3pm6', quantity: itemamount}],
       mode: 'payment',
