@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.0.1">
+    <meta property="og:title" content="亨利的網路付款/贊助"/>
+    <meta property="og:description" content="無論是付款還是打賞贊助我都歡迎喔，使用信用卡付款還可以賺回饋是不是超棒的呢！" />
+    <meta property="og:url" content="https://pay.hiy.tw/" />
+    <meta property="og:image" content="./img/banner.jpeg" />
+
+    <title>亨利的網路付款/贊助</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
+    <script src="https://js.stripe.com/v3"></script>
+    <script>
+      (function() {
+        var stripe = Stripe('pk_live_MJeEYS036uKbV5y44ewvffwg');
+      
+        var checkoutButton = document.getElementById('checkout-button-price_HNVQMsQpph3pm6');
+        checkoutButton.addEventListener('click', function () {
+          // When the customer clicks on the button, redirect
+          // them to Checkout.
+          var itemamount = document.getElementById("item-amount");
+          stripe.redirectToCheckout({
+            lineItems: [{price: 'price_1GtafUD9qrScr9ip6ZHqdFOW', quantity:  parseInt(itemamount.value, 10)}],
+            mode: 'payment',
+            // Do not rely on the redirect to the successUrl for fulfilling
+            // purchases, customers may not always reach the success_url after
+            // a successful payment.
+            // Instead use one of the strategies described in
+            // https://stripe.com/docs/payments/checkout/fulfillment
+            successUrl: 'https://pay.hiy.tw/success',
+            cancelUrl: 'https://pay.hiy.tw/canceled',
+          })
+          .then(function (result) {
+            if (result.error) {
+              // If `redirectToCheckout` fails due to a browser or network
+              // error, display the localized error message to your customer.
+              var displayError = document.getElementById('error-message');
+              displayError.textContent = result.error.message;
+            }
+          });
+        });
+      })();
+      </script>
+
+    <!-- Bootstrap core CSS -->
+<link href="./assets/dist/css/bootstrap.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="./css/pricing.css" rel="stylesheet">
+  </head>
+  <body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+  <h4 class="my-0 mr-md-auto font-weight-normal">亨利的網路付款/贊助</h4>
+</div>
+
+
+<div class="container">
+  <div class="card-deck mb-3 text-center">
+    <div class="card mb-4 shadow-sm">
+      <div class="card-header">
+        <h4 class="my-0 font-weight-normal">Stripe</h4>
+      </div>
+      <div class="card-body">
+        <input type="number" id="item-amount" name="item-amount" min="50" value="100"/>
+
+        <button
+          style="background-color:#6772E5;color:#FFF;padding:8px 12px;border:0;border-radius:4px;font-size:1em"
+          id="checkout-button-price_HNVQMsQpph3pm6"
+          role="link"
+        >
+          Checkout
+        </button>
+        
+        <div id="error-message"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <small class="d-block mb-3 text-muted">亨利的網路付款/贊助 &copy; 2017-2020</small>
+      </div>
+
+
+    </div>
+  </footer>
+</div>
+</body>
+</html>
