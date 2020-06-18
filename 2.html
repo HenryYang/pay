@@ -15,37 +15,7 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/pricing/">
     <script src="https://js.stripe.com/v3"></script>
-    <script>
-      (function() {
-        var stripe = Stripe('pk_live_MJeEYS036uKbV5y44ewvffwg');
-      
-        var checkoutButton = document.getElementById('checkout-button-price_HNVQMsQpph3pm6');
-        checkoutButton.addEventListener('click', function () {
-          // When the customer clicks on the button, redirect
-          // them to Checkout.
-          var itemamount = document.getElementById("item-amount");
-          stripe.redirectToCheckout({
-            lineItems: [{price: 'price_1GtafUD9qrScr9ip6ZHqdFOW', quantity:  parseInt(itemamount.value, 10)}],
-            mode: 'payment',
-            // Do not rely on the redirect to the successUrl for fulfilling
-            // purchases, customers may not always reach the success_url after
-            // a successful payment.
-            // Instead use one of the strategies described in
-            // https://stripe.com/docs/payments/checkout/fulfillment
-            successUrl: 'https://pay.hiy.tw/success',
-            cancelUrl: 'https://pay.hiy.tw/canceled',
-          })
-          .then(function (result) {
-            if (result.error) {
-              // If `redirectToCheckout` fails due to a browser or network
-              // error, display the localized error message to your customer.
-              var displayError = document.getElementById('error-message');
-              displayError.textContent = result.error.message;
-            }
-          });
-        });
-      })();
-      </script>
+
 
     <!-- Bootstrap core CSS -->
 <link href="./assets/dist/css/bootstrap.css" rel="stylesheet">
@@ -108,5 +78,38 @@
     </div>
   </footer>
 </div>
+
+<script>
+  (function() {
+    var stripe = Stripe('pk_live_MJeEYS036uKbV5y44ewvffwg');
+  
+    var checkoutButton = document.getElementById('checkout-button-price_HNVQMsQpph3pm6');
+    checkoutButton.addEventListener('click', function () {
+      // When the customer clicks on the button, redirect
+      // them to Checkout.
+      var itemamount = document.getElementById("item-amount");
+      stripe.redirectToCheckout({
+        lineItems: [{price: 'price_1GtafUD9qrScr9ip6ZHqdFOW', quantity:  parseInt(itemamount.value, 10)}],
+        mode: 'payment',
+        // Do not rely on the redirect to the successUrl for fulfilling
+        // purchases, customers may not always reach the success_url after
+        // a successful payment.
+        // Instead use one of the strategies described in
+        // https://stripe.com/docs/payments/checkout/fulfillment
+        successUrl: 'https://pay.hiy.tw/success',
+        cancelUrl: 'https://pay.hiy.tw/canceled',
+      })
+      .then(function (result) {
+        if (result.error) {
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer.
+          var displayError = document.getElementById('error-message');
+          displayError.textContent = result.error.message;
+        }
+      });
+    });
+  })();
+  </script>
+
 </body>
 </html>
